@@ -1,12 +1,14 @@
-
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
-  // This is your first C program my friend
-  printf("Hello, RTU World from C Lab in 2025!\n");
-  printf("You passed %d argument(s).\n", argc - 1);
-  for (int i = 1; i < argc; ++i) {
-    printf("  arg[%d] = %s\n", i, argv[i]);
+  if (argc > 1) {
+    printf("Hello from AhmetCanKarayoluk! You gave me %d argument(s):\n",
+           argc - 1);
+    for (int i = 1; i < argc; i++) {
+      printf("  Arg %d: %s\n", i, argv[i]);
+    }
+  } else {
+    printf("Hello from YourName! No extra arguments provided.\n");
   }
   return 0;
 }
