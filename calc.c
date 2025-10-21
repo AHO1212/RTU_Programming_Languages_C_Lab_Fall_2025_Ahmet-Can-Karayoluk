@@ -20,7 +20,7 @@ static inline char getc_advance(void) {
   pos++;
   return *src++;
 }
-
+// peek(): returns the current character without advancing
 void skip_spaces(void) {
   while (isspace((unsigned char)peek())) getc_advance();
 }
@@ -31,7 +31,7 @@ double error_here(void) {
   if (!error_pos) error_pos = pos;
   return 0;
 }
-
+// skip_spaces(): skips all whitespace (spaces, tabs, newlines)
 double parse_number(void) {
   skip_spaces();
   char* end;
@@ -41,7 +41,7 @@ double parse_number(void) {
   src = end;
   return v;
 }
-
+// getc_advance(): advances to the next character and increments position
 double parse_factor(void) {
   skip_spaces();
   if (peek() == '(') {
@@ -56,7 +56,7 @@ double parse_factor(void) {
   }
   return parse_number();
 }
-
+// parse_expr/term/factor(): recursive parsing functions by operator precedence level
 double parse_term(void) {
   double left = parse_factor();
   for (;;) {
@@ -69,6 +69,7 @@ double parse_term(void) {
       getc_advance();
       double right = parse_factor();
       if (right == 0) {
+        // error_here(): locks the first error position for consistent reporting
         error_here();
         return 0;
       }
